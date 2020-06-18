@@ -6,18 +6,18 @@
 			visit.
 		</p>
 		<section class="places">
-			<AppCard v-for="i in 5" :key="i"></AppCard>
+			<PlaceCard v-for="i in 5" :key="i"></PlaceCard>
 		</section>
 	</section>
 </template>
 
 <script>
-import AppCard from "@/components/AppCard.vue"
+import PlaceCard from "@/components/PlaceCard.vue"
 
 export default {
 	name: "App",
 	components: {
-		AppCard
+		PlaceCard
 	}
 }
 </script>

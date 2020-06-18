@@ -8,7 +8,7 @@
 
 		<nav class="header_navigation">
 			<ul>
-				<li><router-link to="/myplaces">My places</router-link></li>
+				<li><router-link to="/places">Explore</router-link></li>
 				<li>
 					<router-link to="/categories">Categories</router-link>
 				</li>

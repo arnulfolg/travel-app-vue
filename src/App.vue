@@ -58,7 +58,7 @@ html {
 
 .content {
 	grid-area: travel-content;
-	padding-top: 20px;
+	padding-top: 50px;
 }
 
 h1 {
@@ -136,7 +136,7 @@ a {
 	color: var(--color-black);
 	font-family: "Open Sans", sans-serif;
 	font-style: normal;
-	font-weight: 300;
+	font-weight: 500;
 	font-size: 1.6rem;
 	line-height: 28px;
 

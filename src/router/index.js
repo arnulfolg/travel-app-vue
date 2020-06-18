@@ -13,14 +13,29 @@ const routes = [
 		component: () => import("../views/About.vue")
 	},
 	{
-		path: "/myplaces",
-		name: "My Place",
-		component: () => import("../views/MyPlaces.vue")
-	},
-	{
 		path: "/categories",
 		name: "Categories",
 		component: () => import("../views/Categories.vue")
+	},
+	{
+		path: "/categories/category",
+		name: "Category",
+		component: () => import("../views/Category.vue")
+	},
+	{
+		path: "/places",
+		name: "Explore",
+		component: () => import("../views/Explore.vue")
+	},
+	{
+		path: "/places/place",
+		name: "Place",
+		component: () => import("../views/Place.vue")
+	},
+	{
+		path: "/myplaces",
+		name: "My Place",
+		component: () => import("../views/MyPlaces.vue")
 	}
 ]
 

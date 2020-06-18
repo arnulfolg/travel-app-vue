@@ -1,9 +1,9 @@
 <template>
-	<section class="place">
-		<section
-			class="place_banner"
-			style='background-image: url("https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80");'
-		></section>
+	<section
+		class="banner"
+		style='background-image: url("https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80");'
+	></section>
+	<article class="main place">
 		<section class="place_content">
 			<h2>Place</h2>
 			<p class="tags">
@@ -38,7 +38,7 @@
 				<label for="hadVisited">Had visited</label>
 			</section>
 		</aside>
-	</section>
+	</article>
 </template>
 
 <script>
@@ -53,25 +53,19 @@ export default {
 </script>
 
 <style lang="scss">
+.banner {
+	grid-area: place_banner;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: calc(50vh - 100px);
+}
 .place {
 	display: grid;
 	grid-template-columns: 5fr 2fr;
-	grid-template-rows: 350px 1fr;
-	grid-template-areas:
-		"place_banner place_banner"
-		"place_content place_actions";
 	grid-gap: 40px;
 
-	.place_banner {
-		grid-area: place_banner;
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-	}
-
 	.place_content {
-		grid-area: place_content;
-
 		p.tags {
 			font-size: 1.2rem;
 			display: flex;
@@ -92,8 +86,6 @@ export default {
 	}
 
 	.place_actions {
-		grid-area: place_actions;
-
 		background-color: var(--color-white);
 		box-shadow: 3px 4px 20px rgba(0, 0, 0, 0.25);
 		padding: 40px;

@@ -47,7 +47,7 @@ html {
 	grid-template-columns: 1fr minmax(auto, 1024px) 1fr;
 	grid-template-areas:
 		"travel-header travel-header travel-header"
-		". travel-content .";
+		"travel-content travel-content travel-content";
 	align-items: stretch;
 	justify-items: stretch;
 }
@@ -58,7 +58,25 @@ html {
 
 .content {
 	grid-area: travel-content;
-	padding-top: 50px;
+	display: grid;
+	grid-template-rows: minmax(auto 50vh) auto;
+	grid-template-columns: subgrid;
+	grid-template-areas:
+		"travel-banner travel-banner travel-banner"
+		". travel-main .";
+
+	@supports not (grid-template-columns: subgrid) {
+		grid-template-columns: 1fr minmax(auto, 1024px) 1fr;
+	}
+
+	section.banner {
+		grid-area: travel-banner;
+	}
+
+	.main {
+		grid-area: travel-main;
+		margin-top: 50px;
+	}
 }
 
 h1 {

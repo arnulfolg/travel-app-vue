@@ -1,12 +1,12 @@
 <template>
-	<section class="explore">
+	<main class="main explore">
 		<section class="explore_titles">
 			<h2>Explore places</h2>
 		</section>
 		<section class="explore_list">
 			<PlaceCard v-for="i in 7" :key="i"></PlaceCard>
 		</section>
-	</section>
+	</main>
 </template>
 
 <script>

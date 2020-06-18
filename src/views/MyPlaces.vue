@@ -1,5 +1,5 @@
 <template>
-	<section class="myplaces">
+	<main class="main myplaces">
 		<h2>My places</h2>
 		<p>
 			A list of all the places you have visited and the places you want to
@@ -8,7 +8,7 @@
 		<section class="places">
 			<PlaceCard v-for="i in 5" :key="i"></PlaceCard>
 		</section>
-	</section>
+	</main>
 </template>
 
 <script>

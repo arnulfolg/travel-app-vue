@@ -1,5 +1,5 @@
 <template>
-	<section class="dashboard">
+	<main class="main dashboard">
 		<section class="dashboard_explore">
 			<section class="card">
 				<h3>My Places</h3>
@@ -20,7 +20,7 @@
 				<PlaceCard v-for="i in 3" :key="i"></PlaceCard>
 			</section>
 		</section>
-	</section>
+	</main>
 </template>
 
 <script>

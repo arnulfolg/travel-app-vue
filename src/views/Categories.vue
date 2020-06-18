@@ -1,5 +1,5 @@
 <template>
-	<section class="categories">
+	<main class="main categories">
 		<section class="categories_titles">
 			<h2>Categories</h2>
 			<p>
@@ -10,7 +10,7 @@
 		<section class="categories_list">
 			<CategoryCard v-for="i in 7" :key="i"></CategoryCard>
 		</section>
-	</section>
+	</main>
 </template>
 
 <script>

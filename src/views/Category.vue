@@ -1,5 +1,5 @@
 <template>
-	<section class="category">
+	<main class="main category">
 		<section class="category_titles">
 			<img src="@/assets/category_pueblo_magico.png" alt="" />
 			<h2>Category</h2>
@@ -11,7 +11,7 @@
 		<section class="category_list">
 			<PlaceCard v-for="i in 7" :key="i"></PlaceCard>
 		</section>
-	</section>
+	</main>
 </template>
 
 <script>

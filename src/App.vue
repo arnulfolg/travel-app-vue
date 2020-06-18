@@ -115,7 +115,8 @@ h6 {
 	margin-bottom: 10px;
 }
 p,
-ul {
+ul,
+label {
 	color: var(--color-black);
 	font-family: "Open Sans", sans-serif;
 	font-style: normal;

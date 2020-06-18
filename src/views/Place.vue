@@ -19,17 +19,43 @@
 			</p>
 		</section>
 		<aside class="place_actions">
-			Actions...
+			<section class="review">
+				<section class="review_thumbs" @click="placeLiked = true">
+					<i :class="[placeLiked ? 'fas' : 'far', 'fa-thumbs-up']"></i>
+					<span>4.2K</span>
+				</section>
+				<section class="review_thumbs" @click="placeLiked = false">
+					<i :class="[!placeLiked ? 'fas' : 'far', 'fa-thumbs-down']"></i>
+					<span>124</span>
+				</section>
+			</section>
+			<section class="checkbox">
+				<input type="checkbox" id="wantToVisit" name="wantToVisit" />
+				<label for="wantToVisit">Want to visit</label>
+			</section>
+			<section class="checkbox">
+				<input type="checkbox" id="hadVisited" name="hadVisited" checked />
+				<label for="hadVisited">Had visited</label>
+			</section>
 		</aside>
 	</section>
 </template>
 
-<script></script>
+<script>
+export default {
+	name: "App",
+	setup() {
+		const placeLiked = true
+
+		return { placeLiked }
+	}
+}
+</script>
 
 <style lang="scss">
 .place {
 	display: grid;
-	grid-template-columns: 3fr 1fr;
+	grid-template-columns: 5fr 2fr;
 	grid-template-rows: 350px 1fr;
 	grid-template-areas:
 		"place_banner place_banner"
@@ -70,6 +96,54 @@
 
 		background-color: var(--color-white);
 		box-shadow: 3px 4px 20px rgba(0, 0, 0, 0.25);
+		padding: 40px;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-content: center;
+		align-items: stretch;
+
+		.review {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: space-around;
+			align-content: stretch;
+			align-items: center;
+
+			.review_thumbs {
+				padding: 10px;
+				cursor: pointer;
+				font-family: "Open Sans", sans-serif;
+				font-weight: 300;
+				font-size: 1.5rem;
+				line-height: 28px;
+
+				i {
+					margin-right: 10px;
+				}
+
+				.fas {
+					color: var(--main-app-color);
+
+					+ span {
+						color: var(--main-app-color);
+						font-weight: 600;
+					}
+				}
+			}
+		}
+		.checkbox {
+			margin-bottom: 5px;
+			input {
+				margin-right: 10px;
+
+				&:checked {
+					box-shadow: 0 0 0 3px var(--main-app-color);
+				}
+			}
+		}
 	}
 }
 </style>

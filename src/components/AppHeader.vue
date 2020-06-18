@@ -15,7 +15,10 @@
 			</ul>
 		</nav>
 		<section>
-			<router-link to="/">Sign out</router-link>
+			<router-link to="/">
+				<i class="fas fa-sign-out-alt"></i>
+				Sign out
+			</router-link>
 		</section>
 	</header>
 </template>

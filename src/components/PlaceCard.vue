@@ -1,22 +1,30 @@
 <template>
 	<section class="place_card">
 		<picture class="card_image">
-			<img
-				src="https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
-				alt=""
-			/>
+			<img :src="image" alt="" />
 		</picture>
 		<section class="card_content">
-			<h3>Place</h3>
+			<h3>{{ title }}</h3>
 			<p class="tags">
-				<span class="tag">Mexico</span>
-				<span class="tag">Europa</span>
-				<span class="tag">Pueblo Magico</span>
+				<span class="tag" v-for="item in categories" :key="item">{{
+					item
+				}}</span>
 			</p>
 			<router-link to="/places/place">See place</router-link>
 		</section>
 	</section>
 </template>
+
+<script>
+export default {
+	name: "Place Card",
+	props: {
+		title: { type: String, required: true },
+		image: { type: String, required: false },
+		categories: { type: Array, required: true }
+	}
+}
+</script>
 
 <style lang="scss">
 .place_card {

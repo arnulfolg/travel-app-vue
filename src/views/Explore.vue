@@ -4,7 +4,13 @@
 			<h2>Explore places</h2>
 		</section>
 		<section class="explore_list">
-			<PlaceCard v-for="i in 7" :key="i"></PlaceCard>
+			<PlaceCard
+				v-for="item in places"
+				:key="item.place"
+				:title="item.place"
+				:categories="item.categories"
+				:image="item.image"
+			></PlaceCard>
 		</section>
 	</main>
 </template>
@@ -14,8 +20,25 @@ import PlaceCard from "@/components/PlaceCard.vue"
 
 export default {
 	name: "App",
+	data() {
+		return {
+			places: []
+		}
+	},
 	components: {
 		PlaceCard
+	},
+	async mounted() {
+		var requestOptions = {
+			method: "GET",
+			redirect: "follow"
+		}
+
+		let response = await fetch(
+			"http://localhost:5001/travel-app-9b55f/us-central1/getPlaces",
+			requestOptions
+		)
+		this.places = await response.json()
 	}
 }
 </script>

@@ -17,7 +17,13 @@
 		<section class="dashboard_featured">
 			<h2>Featured Places</h2>
 			<section class="places">
-				<PlaceCard v-for="i in 3" :key="i"></PlaceCard>
+				<PlaceCard
+					v-for="item in featuredPlaces"
+					:key="item.place"
+					:title="item.place"
+					:categories="item.categories"
+					:image="item.image"
+				></PlaceCard>
 			</section>
 		</section>
 	</main>
@@ -28,8 +34,25 @@ import PlaceCard from "@/components/PlaceCard.vue"
 
 export default {
 	name: "App",
+	data() {
+		return {
+			featuredPlaces: []
+		}
+	},
 	components: {
 		PlaceCard
+	},
+	async mounted() {
+		var requestOptions = {
+			method: "GET",
+			redirect: "follow"
+		}
+
+		let response = await fetch(
+			"http://localhost:5001/travel-app-9b55f/us-central1/getFeaturedPlaces",
+			requestOptions
+		)
+		this.featuredPlaces = await response.json()
 	}
 }
 </script>

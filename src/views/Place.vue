@@ -1,22 +1,13 @@
 <template>
-	<section
-		class="banner"
-		style='background-image: url("https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80");'
-	></section>
 	<article class="main place">
 		<section class="place_content">
-			<h2>Place</h2>
+			<h2>{{ place.place }}</h2>
 			<p class="tags">
-				<span class="tag">Mexico</span>
-				<span class="tag">Europa</span>
-				<span class="tag">Pueblo Magico</span>
+				<span class="tag" v-for="item in place.categories" :key="item">{{
+					item
+				}}</span>
 			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi animi
-				velit labore atque ipsum possimus maiores adipisci iste distinctio
-				molestiae suscipit officiis similique voluptates perferendis, incidunt
-				molestias eligendi eius! Quam.
-			</p>
+			<p>{{ place.description }}</p>
 		</section>
 		<aside class="place_actions">
 			<section class="review">
@@ -39,6 +30,10 @@
 			</section>
 		</aside>
 	</article>
+	<section
+		class="banner"
+		:style="{ 'background-image': 'url(' + place.image + ')' }"
+	></section>
 </template>
 
 <script>
@@ -48,6 +43,23 @@ export default {
 		const placeLiked = true
 
 		return { placeLiked }
+	},
+	data() {
+		return {
+			place: {}
+		}
+	},
+	async mounted() {
+		var requestOptions = {
+			method: "GET",
+			redirect: "follow"
+		}
+
+		let response = await fetch(
+			"http://localhost:5001/travel-app-9b55f/us-central1/getPlace?place=Paris",
+			requestOptions
+		)
+		this.place = await response.json()
 	}
 }
 </script>

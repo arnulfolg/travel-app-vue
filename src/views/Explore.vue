@@ -19,7 +19,7 @@
 import PlaceCard from "@/components/PlaceCard.vue"
 
 export default {
-	name: "App",
+	name: "Explore",
 	data() {
 		return {
 			places: []

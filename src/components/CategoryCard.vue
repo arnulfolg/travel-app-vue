@@ -2,7 +2,7 @@
 	<section class="category_card">
 		<div class="titles">
 			<img src="@/assets/category_pueblo_magico.png" alt="" />
-			<h2>Category name</h2>
+			<h2>{{ title }} ({{ num }})</h2>
 		</div>
 		<p>
 			A "Magical Village" is a place with symbolism, legends, history, important
@@ -11,6 +11,17 @@
 		<router-link to="/categories/category">See places</router-link>
 	</section>
 </template>
+
+<script>
+export default {
+	name: "Category Card",
+	props: {
+		title: { type: String, required: true },
+		num: { type: Number, required: false },
+		image: { type: String, required: false }
+	}
+}
+</script>
 
 <style lang="scss">
 .category_card {

@@ -2,14 +2,20 @@
 	<main class="main category">
 		<section class="category_titles">
 			<img src="@/assets/category_pueblo_magico.png" alt="" />
-			<h2>Category</h2>
+			<h2>{{ categoryName.name }}</h2>
 			<p>
 				Category define what kind of place you are visiting. It stablishes a
 				relationship between places so you can plan accordingly.
 			</p>
 		</section>
 		<section class="category_list">
-			<PlaceCard v-for="i in 7" :key="i"></PlaceCard>
+			<PlaceCard
+				v-for="place in category"
+				:key="place.place"
+				:title="place.place"
+				:categories="place.categories"
+				:image="place.image"
+			></PlaceCard>
 		</section>
 	</main>
 </template>
@@ -19,8 +25,32 @@ import PlaceCard from "@/components/PlaceCard.vue"
 
 export default {
 	name: "App",
+	data() {
+		return {
+			category: [],
+			categoryName: {}
+		}
+	},
 	components: {
 		PlaceCard
+	},
+	async mounted() {
+		var requestOptions = {
+			method: "GET",
+			redirect: "follow"
+		}
+
+		let placesResponse = await fetch(
+			"http://localhost:5001/travel-app-9b55f/us-central1/getTagPlaces?tag=huasteca",
+			requestOptions
+		)
+		this.category = await placesResponse.json()
+
+		let tagResponse = await fetch(
+			"http://localhost:5001/travel-app-9b55f/us-central1/getTag?tag=huasteca",
+			requestOptions
+		)
+		this.categoryName = await tagResponse.json()
 	}
 }
 </script>

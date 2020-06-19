@@ -8,7 +8,12 @@
 			</p>
 		</section>
 		<section class="categories_list">
-			<CategoryCard v-for="i in 7" :key="i"></CategoryCard>
+			<CategoryCard
+				v-for="category in categories"
+				:key="category.name"
+				:title="category.name"
+				:num="category.numPlaces"
+			></CategoryCard>
 		</section>
 	</main>
 </template>
@@ -18,8 +23,25 @@ import CategoryCard from "@/components/CategoryCard.vue"
 
 export default {
 	name: "App",
+	data() {
+		return {
+			categories: []
+		}
+	},
 	components: {
 		CategoryCard
+	},
+	async mounted() {
+		var requestOptions = {
+			method: "GET",
+			redirect: "follow"
+		}
+
+		let response = await fetch(
+			"http://localhost:5001/travel-app-9b55f/us-central1/getTags",
+			requestOptions
+		)
+		this.categories = await response.json()
 	}
 }
 </script>

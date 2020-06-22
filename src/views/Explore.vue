@@ -11,24 +11,18 @@
 				:categories="item.categories"
 				:image="item.image"
 			></PlaceCard>
+			<EmptyError v-if="places.length == 0" />
 		</section>
 	</main>
 </template>
 
 <script>
 import PlaceCard from "@/components/PlaceCard.vue"
+import EmptyError from "@/components/EmptyError.vue"
 
 export default {
 	name: "Explore",
-	data() {
-		return {
-			places: []
-		}
-	},
-	components: {
-		PlaceCard
-	},
-	async mounted() {
+	async setup() {
 		var requestOptions = {
 			method: "GET",
 			redirect: "follow"
@@ -38,7 +32,12 @@ export default {
 			"http://localhost:5001/travel-app-9b55f/us-central1/getPlaces",
 			requestOptions
 		)
-		this.places = await response.json()
+		let places = await response.json()
+		return { places }
+	},
+	components: {
+		PlaceCard,
+		EmptyError
 	}
 }
 </script>
@@ -53,7 +52,7 @@ export default {
 
 .explore .explore_list {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(3, minmax(auto, 1fr));
 	grid-auto-rows: auto;
 	grid-gap: 40px;
 }

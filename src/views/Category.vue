@@ -16,12 +16,14 @@
 				:categories="place.categories"
 				:image="place.image"
 			></PlaceCard>
+			<EmptyError v-if="category.length == 0" />
 		</section>
 	</main>
 </template>
 
 <script>
 import PlaceCard from "@/components/PlaceCard.vue"
+import EmptyError from "@/components/EmptyError.vue"
 
 export default {
 	name: "App",
@@ -32,22 +34,28 @@ export default {
 		}
 	},
 	components: {
-		PlaceCard
+		PlaceCard,
+		EmptyError
 	},
 	async mounted() {
+		let categorySelected = this.$route.params.category
 		var requestOptions = {
 			method: "GET",
 			redirect: "follow"
 		}
 
 		let placesResponse = await fetch(
-			"http://localhost:5001/travel-app-9b55f/us-central1/getTagPlaces?tag=huasteca",
+			"http://localhost:5001/travel-app-9b55f/us-central1/getTagPlaces?tag=" +
+				categorySelected +
+				"",
 			requestOptions
 		)
 		this.category = await placesResponse.json()
 
 		let tagResponse = await fetch(
-			"http://localhost:5001/travel-app-9b55f/us-central1/getTag?tag=huasteca",
+			"http://localhost:5001/travel-app-9b55f/us-central1/getTag?tag=" +
+				categorySelected +
+				"",
 			requestOptions
 		)
 		this.categoryName = await tagResponse.json()

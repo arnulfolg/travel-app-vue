@@ -10,7 +10,7 @@
 					item
 				}}</span>
 			</p>
-			<router-link to="/places/place">See place</router-link>
+			<router-link :to="'/places/' + title">See place</router-link>
 		</section>
 	</section>
 </template>

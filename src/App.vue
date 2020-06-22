@@ -4,17 +4,26 @@
 	</section>
 
 	<section class="content">
-		<router-view />
+		<Suspense>
+			<template #default>
+				<router-view />
+			</template>
+			<template #fallback>
+				<Loading />
+			</template>
+		</Suspense>
 	</section>
 </template>
 
 <script>
 import AppHeader from "@/components/AppHeader.vue"
+import Loading from "@/components/Loading.vue"
 
 export default {
 	name: "App",
 	components: {
-		AppHeader
+		AppHeader,
+		Loading
 	}
 }
 </script>
@@ -27,7 +36,7 @@ export default {
 	--main-app-color: #41b883;
 	--color-white: #ffffff;
 	--color-black: #000000;
-	--main-gray: gray;
+	--main-gray: #dfdfdf;
 	--container-size: 1024px;
 }
 

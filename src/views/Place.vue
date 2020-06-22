@@ -50,13 +50,16 @@ export default {
 		}
 	},
 	async mounted() {
+		let placeSelected = this.$route.params.place
 		var requestOptions = {
 			method: "GET",
 			redirect: "follow"
 		}
 
 		let response = await fetch(
-			"http://localhost:5001/travel-app-9b55f/us-central1/getPlace?place=Paris",
+			"http://localhost:5001/travel-app-9b55f/us-central1/getPlace?place=" +
+				placeSelected +
+				"",
 			requestOptions
 		)
 		this.place = await response.json()

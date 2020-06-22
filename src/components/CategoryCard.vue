@@ -8,7 +8,7 @@
 			A "Magical Village" is a place with symbolism, legends, history, important
 			events, festivals, traditions, great food, and fun interactive shopping.
 		</p>
-		<router-link to="/categories/category">See places</router-link>
+		<router-link :to="'/categories/' + title">See places</router-link>
 	</section>
 </template>
 

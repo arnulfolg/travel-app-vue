@@ -24,6 +24,7 @@
 					:categories="item.categories"
 					:image="item.image"
 				></PlaceCard>
+				<EmptyError v-if="featuredPlaces.length == 0" />
 			</section>
 		</section>
 	</main>
@@ -31,6 +32,7 @@
 
 <script>
 import PlaceCard from "@/components/PlaceCard.vue"
+import EmptyError from "@/components/EmptyError.vue"
 
 export default {
 	name: "App",
@@ -40,7 +42,8 @@ export default {
 		}
 	},
 	components: {
-		PlaceCard
+		PlaceCard,
+		EmptyError
 	},
 	async mounted() {
 		var requestOptions = {

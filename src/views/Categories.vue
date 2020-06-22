@@ -14,24 +14,18 @@
 				:title="category.name"
 				:num="category.numPlaces"
 			></CategoryCard>
+			<EmptyError v-if="categories.length == 0" />
 		</section>
 	</main>
 </template>
 
 <script>
 import CategoryCard from "@/components/CategoryCard.vue"
+import EmptyError from "@/components/EmptyError.vue"
 
 export default {
 	name: "App",
-	data() {
-		return {
-			categories: []
-		}
-	},
-	components: {
-		CategoryCard
-	},
-	async mounted() {
+	async setup() {
 		var requestOptions = {
 			method: "GET",
 			redirect: "follow"
@@ -41,7 +35,12 @@ export default {
 			"http://localhost:5001/travel-app-9b55f/us-central1/getTags",
 			requestOptions
 		)
-		this.categories = await response.json()
+		let categories = await response.json()
+		return { categories }
+	},
+	components: {
+		CategoryCard,
+		EmptyError
 	}
 }
 </script>

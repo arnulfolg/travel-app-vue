@@ -18,7 +18,7 @@ const routes = [
 		component: () => import("../views/Categories.vue")
 	},
 	{
-		path: "/categories/category",
+		path: "/categories/:category",
 		name: "Category",
 		component: () => import("../views/Category.vue")
 	},
@@ -28,7 +28,7 @@ const routes = [
 		component: () => import("../views/Explore.vue")
 	},
 	{
-		path: "/places/place",
+		path: "/places/:place",
 		name: "Place",
 		component: () => import("../views/Place.vue")
 	},

@@ -1,7 +1,7 @@
 <template>
 	<main class="main category">
 		<section class="category_titles">
-			<img src="@/assets/category_pueblo_magico.png" alt="" />
+			<img :src="categoryName.image" alt="" />
 			<h2>{{ categoryName.name }}</h2>
 			<p>
 				Category define what kind of place you are visiting. It stablishes a

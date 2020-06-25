@@ -2,20 +2,24 @@
 	<header class="travel_header">
 		<section>
 			<router-link to="/">
-				Travel App
+				<img src="@/assets/logo.svg" alt="Travel App" />
 			</router-link>
 		</section>
 
 		<nav class="header_navigation">
 			<ul>
-				<li><router-link to="/places">Explore</router-link></li>
 				<li>
-					<router-link to="/categories">Categories</router-link>
+					<router-link class="header_link" to="/places">Explore</router-link>
+				</li>
+				<li>
+					<router-link class="header_link" to="/categories">
+						Categories
+					</router-link>
 				</li>
 			</ul>
 		</nav>
 		<section>
-			<router-link to="/">
+			<router-link class="header_link" to="/">
 				<i class="fas fa-sign-out-alt"></i>
 				Sign out
 			</router-link>
@@ -36,6 +40,17 @@ header.travel_header {
 	align-content: center;
 	align-items: center;
 	padding: 40px;
+
+	.header_link {
+		color: var(--color-white);
+		font-weight: 300;
+		text-decoration: none;
+
+		&.router-link-active {
+			font-weight: 600;
+			text-decoration: initial;
+		}
+	}
 }
 
 .header_navigation ul {

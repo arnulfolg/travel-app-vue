@@ -1,8 +1,8 @@
 <template>
 	<section class="category_card">
 		<div class="titles">
-			<img src="@/assets/category_pueblo_magico.png" alt="" />
-			<h2>{{ title }} ({{ num }})</h2>
+			<img :src="image" alt="" />
+			<h2>{{ title }}</h2>
 		</div>
 		<p>
 			A "Magical Village" is a place with symbolism, legends, history, important

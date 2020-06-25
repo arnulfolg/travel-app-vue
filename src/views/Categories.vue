@@ -12,7 +12,7 @@
 				v-for="category in categories"
 				:key="category.name"
 				:title="category.name"
-				:num="category.numPlaces"
+				:image="category.image"
 			></CategoryCard>
 			<EmptyError v-if="categories.length == 0" />
 		</section>

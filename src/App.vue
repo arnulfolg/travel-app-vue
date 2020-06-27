@@ -1,6 +1,10 @@
 <template>
 	<section class="header">
-		<AppHeader></AppHeader>
+		<AppHeader @sign-in="sendMessage"></AppHeader>
+	</section>
+
+	<section class="auth">
+		<AuthDialog :title="dialogStatus" :openDialog="dialogStatus"></AuthDialog>
 	</section>
 
 	<section class="content">
@@ -18,12 +22,24 @@
 <script>
 import AppHeader from "@/components/AppHeader.vue"
 import Loading from "@/components/Loading.vue"
+import AuthDialog from "@/components/AuthDialog.vue"
 
 export default {
 	name: "App",
 	components: {
 		AppHeader,
-		Loading
+		Loading,
+		AuthDialog
+	},
+	data() {
+		return {
+			dialogStatus: false
+		}
+	},
+	methods: {
+		sendMessage() {
+			this.dialogStatus = true
+		}
 	}
 }
 </script>
@@ -63,6 +79,11 @@ html {
 
 .header {
 	grid-area: travel-header;
+}
+
+.auth {
+	grid-row: 1 / -1;
+	grid-column: 1 / -1;
 }
 
 .content {

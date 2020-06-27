@@ -19,13 +19,43 @@
 			</ul>
 		</nav>
 		<section>
-			<router-link class="header_link" to="/">
+			<router-link
+				class="header_link"
+				v-if="!userLoggedIn"
+				to=""
+				@click.prevent="toggleDialog"
+			>
+				<i class="fas fa-sign-in-alt"></i>
+				Sign In
+			</router-link>
+			<router-link
+				class="header_link"
+				v-if="userLoggedIn"
+				to=""
+				@click.prevent="toggleDialog"
+			>
 				<i class="fas fa-sign-out-alt"></i>
-				Sign out
+				Sign Out
 			</router-link>
 		</section>
 	</header>
 </template>
+
+<script>
+export default {
+	data() {
+		return {
+			userLoggedIn: false
+		}
+	},
+	methods: {
+		toggleDialog() {
+			// this.userLoggedIn = !this.userLoggedIn
+			this.$emit("sign-in")
+		}
+	}
+}
+</script>
 
 <style lang="scss">
 header.travel_header {

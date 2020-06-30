@@ -23,17 +23,12 @@
 				class="header_link"
 				v-if="!userLoggedIn"
 				to=""
-				@click.prevent="toggleDialog"
+				@click.prevent="logIn"
 			>
 				<i class="fas fa-sign-in-alt"></i>
 				Sign In
 			</router-link>
-			<router-link
-				class="header_link"
-				v-if="userLoggedIn"
-				to=""
-				@click.prevent="toggleDialog"
-			>
+			<router-link class="header_link" to="" @click.prevent="logOut">
 				<i class="fas fa-sign-out-alt"></i>
 				Sign Out
 			</router-link>
@@ -49,9 +44,11 @@ export default {
 		}
 	},
 	methods: {
-		toggleDialog() {
-			// this.userLoggedIn = !this.userLoggedIn
+		logIn() {
 			this.$emit("sign-in")
+		},
+		logOut() {
+			this.$emit("sign-out")
 		}
 	}
 }

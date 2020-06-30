@@ -1,10 +1,14 @@
 <template>
 	<section class="header">
-		<AppHeader @sign-in="sendMessage"></AppHeader>
+		<AppHeader @sign-in="signIn" @sign-out="closeDialog"></AppHeader>
 	</section>
 
 	<section class="auth">
-		<AuthDialog :title="dialogStatus" :openDialog="dialogStatus"></AuthDialog>
+		<AuthDialog
+			:title="dialogStatus"
+			:openDialog="dialogStatus"
+			@close-dialog="closeDialog"
+		></AuthDialog>
 	</section>
 
 	<section class="content">
@@ -37,8 +41,11 @@ export default {
 		}
 	},
 	methods: {
-		sendMessage() {
+		signIn() {
 			this.dialogStatus = true
+		},
+		closeDialog() {
+			this.dialogStatus = false
 		}
 	}
 }
@@ -53,6 +60,7 @@ export default {
 	--color-white: #ffffff;
 	--color-black: #000000;
 	--main-gray: #dfdfdf;
+	--modal-bgc: #dfdfdfe3;
 	--container-size: 1024px;
 }
 

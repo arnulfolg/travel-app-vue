@@ -1,7 +1,9 @@
 <template>
 	<section
 		class="auth-dialog"
-		:class="dialogStatus ? 'auth-dialog__open' : 'auth-dialog__close'"
+		:class="
+			store.state.signInDialog ? 'auth-dialog__open' : 'auth-dialog__close'
+		"
 	>
 		<section>
 			<form method="dialog">
@@ -23,6 +25,7 @@
 				<menu>
 					<button value="cancel" @click.prevent="closeModal">Cancel</button>
 					<button value="submit" @click.prevent="logIn">Confirm</button>
+					<p>{{ sesionStatus }}</p>
 				</menu>
 			</form>
 		</section>
@@ -32,6 +35,7 @@
 <script>
 import firebase from "firebase/app"
 import "firebase/auth"
+import { useStore } from "vuex"
 
 firebase.initializeApp({
 	apiKey: "AIzaSyCx-qm6ofRIZKBGl3Wyd4KrQ5wYADYDljU",
@@ -47,12 +51,13 @@ firebase.initializeApp({
 const auth = firebase.auth()
 
 export default {
+	setup() {
+		const store = useStore()
+
+		return { store }
+	},
 	props: {
-		title: {
-			type: Boolean,
-			required: false
-		},
-		openDialog: {
+		signOut: {
 			type: Boolean,
 			required: true
 		}
@@ -65,26 +70,30 @@ export default {
 		}
 	},
 	computed: {
-		dialogStatus() {
-			return this.openDialog
+		sesionStatus() {
+			this.logOut()
+			return this.signOut
 		}
 	},
 	methods: {
-		closeModal() {
-			// this.$emit("close-dialog")
+		logOut() {
 			this.auth.signOut()
+			this.store.commit("closeSignInDialog")
+			this.store.commit("changeLoggedStatus")
+		},
+		closeModal() {
+			this.store.commit("closeSignInDialog")
 		},
 		logIn() {
-			// debugger
+			debugger
 			this.auth
 				.signInWithEmailAndPassword(this.email, this.password)
 				.then(cred => {
+					debugger
 					console.log(cred.user)
-					this.$emit("close-dialog")
+					this.store.commit("changeLoggedStatus")
+					this.store.commit("closeSignInDialog")
 				})
-			// let email = this.email
-			// let password = this.password
-			// this.$emit("close-dialog")
 		}
 	}
 }

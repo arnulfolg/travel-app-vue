@@ -1,14 +1,10 @@
 <template>
 	<section class="header">
-		<AppHeader @sign-in="signIn" @sign-out="closeDialog"></AppHeader>
+		<AppHeader @sign-out="logOutTrigger = true"></AppHeader>
 	</section>
 
 	<section class="auth">
-		<AuthDialog
-			:title="dialogStatus"
-			:openDialog="dialogStatus"
-			@close-dialog="closeDialog"
-		></AuthDialog>
+		<AuthDialog :signOut="logOutTrigger"></AuthDialog>
 	</section>
 
 	<section class="content">
@@ -37,15 +33,7 @@ export default {
 	},
 	data() {
 		return {
-			dialogStatus: false
-		}
-	},
-	methods: {
-		signIn() {
-			this.dialogStatus = true
-		},
-		closeDialog() {
-			this.dialogStatus = false
+			logOutTrigger: false
 		}
 	}
 }

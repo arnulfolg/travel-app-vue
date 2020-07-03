@@ -1,8 +1,27 @@
-import Vuex from "vuex"
+import { createStore } from "vuex"
 
-export default Vuex.createStore({
-	state: {},
-	mutations: {},
-	actions: {},
-	modules: {}
+const state = {
+	count: 1,
+	loggedIn: false,
+	signInDialog: false
+}
+
+const mutations = {
+	increment(state) {
+		state.count++
+	},
+	changeLoggedStatus(state) {
+		state.loggedIn = !state.loggedIn
+	},
+	openSignInDialog(state) {
+		state.signInDialog = true
+	},
+	closeSignInDialog(state) {
+		state.signInDialog = false
+	}
+}
+
+export default createStore({
+	state,
+	mutations
 })

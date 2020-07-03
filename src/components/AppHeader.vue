@@ -21,14 +21,19 @@
 		<section>
 			<router-link
 				class="header_link"
-				v-if="!userLoggedIn"
+				v-if="store.state.loggedIn"
 				to=""
 				@click.prevent="logIn"
 			>
 				<i class="fas fa-sign-in-alt"></i>
 				Sign In
 			</router-link>
-			<router-link class="header_link" to="" @click.prevent="logOut">
+			<router-link
+				class="header_link"
+				v-if="!store.state.loggedIn"
+				to=""
+				@click.prevent="logOut"
+			>
 				<i class="fas fa-sign-out-alt"></i>
 				Sign Out
 			</router-link>
@@ -37,17 +42,22 @@
 </template>
 
 <script>
+import { useStore } from "vuex"
+import { computed } from "vue"
+
 export default {
-	data() {
-		return {
-			userLoggedIn: false
-		}
+	setup() {
+		const store = useStore()
+		const count = computed(() => store.state.count)
+
+		return { count, store }
 	},
 	methods: {
 		logIn() {
-			this.$emit("sign-in")
+			this.store.commit("openSignInDialog")
 		},
 		logOut() {
+			this.store.commit("changeLoggedStatus")
 			this.$emit("sign-out")
 		}
 	}

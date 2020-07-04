@@ -25,7 +25,6 @@
 				<menu>
 					<button value="cancel" @click.prevent="closeModal">Cancel</button>
 					<button value="submit" @click.prevent="logIn">Confirm</button>
-					<p>{{ sesionStatus }}</p>
 				</menu>
 			</form>
 		</section>
@@ -36,6 +35,7 @@
 import firebase from "firebase/app"
 import "firebase/auth"
 import { useStore } from "vuex"
+import { emitter } from "./../store/eventbus"
 
 firebase.initializeApp({
 	apiKey: "AIzaSyCx-qm6ofRIZKBGl3Wyd4KrQ5wYADYDljU",
@@ -69,12 +69,6 @@ export default {
 			password: ""
 		}
 	},
-	computed: {
-		sesionStatus() {
-			this.logOut()
-			return this.signOut
-		}
-	},
 	methods: {
 		logOut() {
 			this.auth.signOut()
@@ -84,17 +78,33 @@ export default {
 		closeModal() {
 			this.store.commit("closeSignInDialog")
 		},
+		openModal() {
+			this.store.commit("openSignInDialog")
+		},
 		logIn() {
-			debugger
 			this.auth
 				.signInWithEmailAndPassword(this.email, this.password)
 				.then(cred => {
-					debugger
 					console.log(cred.user)
 					this.store.commit("changeLoggedStatus")
 					this.store.commit("closeSignInDialog")
 				})
+				.catch(err => {
+					if (err.code == "auth/wrong-password") {
+						console.log(err)
+					} else {
+						this.store.commit("closeSignInDialog")
+					}
+				})
 		}
+	},
+	mounted() {
+		emitter.on("signin", () => {
+			this.openModal()
+		})
+		emitter.on("signout", () => {
+			this.logOut()
+		})
 	}
 }
 </script>
@@ -130,10 +140,6 @@ export default {
 			height: 42px;
 			width: 300px;
 		}
-	}
-
-	&__close {
-		display: none;
 	}
 }
 </style>

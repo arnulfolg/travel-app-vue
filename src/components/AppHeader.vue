@@ -44,6 +44,7 @@
 <script>
 import { useStore } from "vuex"
 import { computed } from "vue"
+import { emitter } from "./../store/eventbus"
 
 export default {
 	setup() {
@@ -54,11 +55,12 @@ export default {
 	},
 	methods: {
 		logIn() {
-			this.store.commit("openSignInDialog")
+			emitter.emit("signin")
+			// store.commit("openSignInDialog")
 		},
 		logOut() {
-			this.store.commit("changeLoggedStatus")
-			this.$emit("sign-out")
+			emitter.emit("signout")
+			// this.store.commit("changeLoggedStatus")
 		}
 	}
 }

@@ -1,10 +1,13 @@
 <template>
 	<section class="header">
-		<AppHeader @sign-out="logOutTrigger = true"></AppHeader>
+		<AppHeader></AppHeader>
 	</section>
 
-	<section class="auth">
-		<AuthDialog :signOut="logOutTrigger"></AuthDialog>
+	<section
+		class="auth"
+		:class="store.state.signInDialog ? 'auth__open' : 'auth__close'"
+	>
+		<AuthDialog></AuthDialog>
 	</section>
 
 	<section class="content">
@@ -23,18 +26,19 @@
 import AppHeader from "@/components/AppHeader.vue"
 import Loading from "@/components/Loading.vue"
 import AuthDialog from "@/components/AuthDialog.vue"
+import { useStore } from "vuex"
 
 export default {
 	name: "App",
+	setup() {
+		const store = useStore()
+
+		return { store }
+	},
 	components: {
 		AppHeader,
 		Loading,
 		AuthDialog
-	},
-	data() {
-		return {
-			logOutTrigger: false
-		}
 	}
 }
 </script>
@@ -80,6 +84,10 @@ html {
 .auth {
 	grid-row: 1 / -1;
 	grid-column: 1 / -1;
+
+	&__close {
+		display: none;
+	}
 }
 
 .content {

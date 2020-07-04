@@ -52,7 +52,7 @@ export default {
 	--color-white: #ffffff;
 	--color-black: #000000;
 	--main-gray: #dfdfdf;
-	--modal-bgc: #dfdfdfe3;
+	--modal-bgc: #41b883e3;
 	--container-size: 1024px;
 }
 
@@ -84,6 +84,17 @@ html {
 .auth {
 	grid-row: 1 / -1;
 	grid-column: 1 / -1;
+	z-index: 500;
+	max-height: 100vh;
+	background-color: var(--modal-bgc);
+	overflow: hidden;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
 
 	&__close {
 		display: none;
@@ -168,6 +179,8 @@ h6 {
 }
 p,
 ul,
+input,
+button,
 label {
 	color: var(--color-black);
 	font-family: "Open Sans", sans-serif;

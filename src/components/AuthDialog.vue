@@ -1,13 +1,10 @@
 <template>
-	<section
-		class="auth-dialog"
-		:class="
-			store.state.signInDialog ? 'auth-dialog__open' : 'auth-dialog__close'
-		"
-	>
-		<section>
-			<form method="dialog">
+	<section class="auth-dialog">
+		<form method="dialog">
+			<section class="dialog_header">
 				<h2>Sign In</h2>
+			</section>
+			<section class="dialog_content">
 				<label for="user-name">Username:</label>
 				<input
 					id="user-name"
@@ -22,12 +19,14 @@
 					v-model="password"
 					placeholder="Password"
 				/>
-				<menu>
-					<button value="cancel" @click.prevent="closeModal">Cancel</button>
-					<button value="submit" @click.prevent="logIn">Confirm</button>
-				</menu>
-			</form>
-		</section>
+			</section>
+			<section class="dialog_actions">
+				<button value="cancel" @click.prevent="closeModal">Cancel</button>
+				<button class="cta" value="submit" @click.prevent="logIn">
+					Confirm
+				</button>
+			</section>
+		</form>
 	</section>
 </template>
 
@@ -111,25 +110,27 @@ export default {
 
 <style lang="scss">
 .auth-dialog {
-	background-color: var(--modal-bgc);
-	height: 100vh;
-	z-index: 1000;
-	position: sticky;
+	width: 40%;
+	height: 40%;
+	background-color: var(--color-white);
+	border-radius: 8px;
 
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: center;
 	align-content: center;
-	align-items: center;
+	align-items: stretch;
 
 	form {
+		padding: 24px;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		flex-wrap: nowrap;
-		justify-content: flex-start;
-		align-content: center;
-		align-items: flex-start;
+		justify-content: space-between;
+		align-content: stretch;
+		align-items: stretch;
 
 		label {
 			margin-bottom: 0;
@@ -138,7 +139,60 @@ export default {
 		input {
 			margin-bottom: 24px;
 			height: 42px;
-			width: 300px;
+			width: 100%;
+			border: 1px solid #363636;
+			border-radius: 4px;
+
+			&:focus {
+				border: 2px solid #363636;
+			}
+		}
+
+		.dialog_content {
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+			align-content: stretch;
+			align-items: stretch;
+		}
+
+		.dialog_actions {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+			align-content: stretch;
+			align-items: stretch;
+
+			button {
+				height: 45px;
+				padding: 0 20px;
+				margin-bottom: 0;
+				background-color: #fff;
+				border: 1px solid #363636;
+				border-radius: 4px;
+				color: #363636;
+				cursor: pointer;
+				box-shadow: none;
+
+				&.cta {
+					background-color: var(--main-app-color);
+					border: 1px solid var(--main-app-color);
+					color: #fff;
+
+					&:hover {
+						background-color: #258057;
+						border-color: #258057;
+						color: #fff;
+					}
+				}
+
+				&:hover {
+					background-color: #363636;
+					color: #fff;
+				}
+			}
 		}
 	}
 }

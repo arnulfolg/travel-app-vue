@@ -72,7 +72,6 @@ export default {
 		logOut() {
 			this.auth.signOut()
 			this.store.commit("closeSignInDialog")
-			this.store.commit("changeLoggedStatus")
 		},
 		closeModal() {
 			this.store.commit("closeSignInDialog")
@@ -83,9 +82,7 @@ export default {
 		logIn() {
 			this.auth
 				.signInWithEmailAndPassword(this.email, this.password)
-				.then(cred => {
-					console.log(cred.user)
-					this.store.commit("changeLoggedStatus")
+				.then(() => {
 					this.store.commit("closeSignInDialog")
 				})
 				.catch(err => {
@@ -98,6 +95,16 @@ export default {
 		}
 	},
 	mounted() {
+		auth.onAuthStateChanged(user => {
+			if (user) {
+				this.store.commit("changeLoggedStatus", true)
+				this.store.commit("setUserData", user.email)
+			} else {
+				this.store.commit("changeLoggedStatus", false)
+				this.store.commit("setUserData", "")
+			}
+		})
+
 		emitter.on("signin", () => {
 			this.openModal()
 		})

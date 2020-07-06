@@ -18,7 +18,8 @@
 				</li>
 			</ul>
 		</nav>
-		<section>
+		<section class="logInModule">
+			<p>{{ store.state.userData.email }}</p>
 			<router-link
 				class="header_link"
 				v-if="!store.state.loggedIn"
@@ -56,11 +57,9 @@ export default {
 	methods: {
 		logIn() {
 			emitter.emit("signin")
-			// store.commit("openSignInDialog")
 		},
 		logOut() {
 			emitter.emit("signout")
-			// this.store.commit("changeLoggedStatus")
 		}
 	}
 }
@@ -79,6 +78,18 @@ header.travel_header {
 	align-content: center;
 	align-items: center;
 	padding: 40px;
+
+	section.logInModule {
+		display: flex;
+		flex-direction: row;
+
+		p {
+			margin-right: 10px;
+			font-style: italic;
+			color: var(--color-white);
+			font-size: 1.4rem;
+		}
+	}
 
 	.header_link {
 		color: var(--color-white);

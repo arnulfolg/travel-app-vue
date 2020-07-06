@@ -2,12 +2,16 @@ import { createStore } from "vuex"
 
 const state = {
 	loggedIn: false,
-	signInDialog: false
+	signInDialog: false,
+	userData: {
+		name: "",
+		email: ""
+	}
 }
 
 const mutations = {
-	changeLoggedStatus(state) {
-		state.loggedIn = !state.loggedIn
+	changeLoggedStatus(state, newStatus) {
+		state.loggedIn = newStatus
 	},
 	openSignInDialog(state) {
 		state.signInDialog = true
@@ -16,6 +20,9 @@ const mutations = {
 	closeSignInDialog(state) {
 		state.signInDialog = false
 		document.body.style.overflow = "visible"
+	},
+	setUserData(state, email) {
+		state.userData.email = email
 	}
 }
 

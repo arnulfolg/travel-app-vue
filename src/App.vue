@@ -73,8 +73,9 @@ html {
 	grid-template-areas:
 		"travel-header travel-header travel-header"
 		"travel-content travel-content travel-content";
-	align-items: stretch;
 	justify-items: stretch;
+	align-items: start;
+	min-height: 100vh;
 }
 
 .header {
@@ -85,7 +86,7 @@ html {
 	grid-row: 1 / -1;
 	grid-column: 1 / -1;
 	z-index: 500;
-	max-height: 100vh;
+	height: 100vh;
 	background-color: var(--modal-bgc);
 	overflow: hidden;
 
@@ -104,7 +105,6 @@ html {
 .content {
 	grid-area: travel-content;
 	display: grid;
-	grid-template-rows: minmax(auto 50vh) auto;
 	grid-template-columns: subgrid;
 	grid-template-areas:
 		"travel-banner travel-banner travel-banner"

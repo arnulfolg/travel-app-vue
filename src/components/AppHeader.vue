@@ -21,7 +21,7 @@
 		<section>
 			<router-link
 				class="header_link"
-				v-if="store.state.loggedIn"
+				v-if="!store.state.loggedIn"
 				to=""
 				@click.prevent="logIn"
 			>
@@ -30,7 +30,7 @@
 			</router-link>
 			<router-link
 				class="header_link"
-				v-if="!store.state.loggedIn"
+				v-if="store.state.loggedIn"
 				to=""
 				@click.prevent="logOut"
 			>

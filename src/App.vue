@@ -23,9 +23,9 @@
 </template>
 
 <script>
+import AuthDialog from "@/components/AuthDialog.vue"
 import AppHeader from "@/components/AppHeader.vue"
 import Loading from "@/components/Loading.vue"
-import AuthDialog from "@/components/AuthDialog.vue"
 import { useStore } from "vuex"
 
 export default {

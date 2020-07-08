@@ -94,11 +94,12 @@ export default {
 				})
 		}
 	},
-	mounted() {
+	created() {
 		auth.onAuthStateChanged(user => {
 			if (user) {
+				console.log("Auth")
 				this.store.commit("changeLoggedStatus", true)
-				this.store.commit("setUserData", user.email)
+				this.store.commit("setUserData", user)
 			} else {
 				this.store.commit("changeLoggedStatus", false)
 				this.store.commit("setUserData", "")

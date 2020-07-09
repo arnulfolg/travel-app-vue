@@ -23,8 +23,6 @@ const mutations = {
 		document.body.style.overflow = "visible"
 	},
 	setUserData(state, user) {
-		console.log(user.uid)
-		console.log(user.email)
 		state.userData.uid = user.uid
 		state.userData.email = user.email
 	}

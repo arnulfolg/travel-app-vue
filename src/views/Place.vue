@@ -7,7 +7,6 @@
 					item
 				}}</span>
 			</p>
-			{{ userPlaceData }}
 			<p>{{ place.description }}</p>
 		</section>
 		<aside class="place_actions">
@@ -19,7 +18,12 @@
 							type="button"
 							@click.prevent="toggleLike"
 						>
-							<i :class="[likeStatus == 1 ? 'fas' : 'far', 'fa-thumbs-up']"></i>
+							<i
+								:class="[
+									userPlaceData.likeStatus == 1 ? 'fas' : 'far',
+									'fa-thumbs-up'
+								]"
+							></i>
 							<span>4.2K</span>
 						</button>
 						<button
@@ -28,17 +32,31 @@
 							@click.prevent="toggleDisike"
 						>
 							<i
-								:class="[likeStatus == 0 ? 'fas' : 'far', 'fa-thumbs-down']"
+								:class="[
+									userPlaceData.likeStatus == 0 ? 'fas' : 'far',
+									'fa-thumbs-down'
+								]"
 							></i>
 							<span>124</span>
 						</button>
 					</section>
 					<section class="checkbox">
-						<input type="checkbox" id="wantToVisit" name="wantToVisit" />
+						<input
+							type="checkbox"
+							id="wantToVisit"
+							name="wantToVisit"
+							v-model="userPlaceData.wantToVisit"
+						/>
 						<label for="wantToVisit">Want to visit</label>
 					</section>
 					<section class="checkbox">
-						<input type="checkbox" id="hadVisited" name="hadVisited" checked />
+						<input
+							type="checkbox"
+							id="hadVisited"
+							name="hadVisited"
+							v-model="userPlaceData.hadVisited"
+							checked
+						/>
 						<label for="hadVisited">Had visited</label>
 					</section>
 				</fieldset>
@@ -58,10 +76,9 @@ export default {
 	name: "App",
 	setup() {
 		const store = useStore()
-		const likeStatus = -1
 		const disableForm = false
 
-		return { store, likeStatus, disableForm }
+		return { store, disableForm }
 	},
 	data() {
 		return {
@@ -75,22 +92,25 @@ export default {
 	},
 	methods: {
 		toggleLike() {
-			if (this.likeStatus == 1) {
-				this.likeStatus = -1
+			if (this.userPlaceData.likeStatus == 1) {
+				this.userPlaceData.likeStatus = -1
 			} else {
-				this.likeStatus = 1
+				this.userPlaceData.likeStatus = 1
 			}
 
 			let myHeaders = new Headers()
 			myHeaders.append("Content-Type", "application/json")
 
 			let body = JSON.stringify({
+				docid: this.userPlaceData.docid || null,
 				uid: this.store.state.userData.uid,
 				pid: this.place.id,
-				likeStatus: this.likeStatus,
-				wantToVisit: false,
-				hadVisited: false
+				likeStatus: this.userPlaceData.likeStatus,
+				wantToVisit: this.userPlaceData.wantToVisit,
+				hadVisited: this.userPlaceData.hadVisited
 			})
+
+			console.log(body)
 
 			var requestOptions = {
 				method: "POST",
@@ -108,22 +128,22 @@ export default {
 				.catch(error => console.log("error", error))
 		},
 		toggleDisike() {
-			if (this.likeStatus == 0) {
-				this.likeStatus = -1
+			if (this.userPlaceData.likeStatus == 0) {
+				this.userPlaceData.likeStatus = -1
 			} else {
-				this.likeStatus = 0
+				this.userPlaceData.likeStatus = 0
 			}
 
 			let myHeaders = new Headers()
 			myHeaders.append("Content-Type", "application/json")
 
 			let body = JSON.stringify({
-				docid: this.userPlaceData.id || null,
+				docid: this.userPlaceData.docid || null,
 				uid: this.store.state.userData.uid,
 				pid: this.place.id,
-				likeStatus: this.likeStatus,
-				wantToVisit: false,
-				hadVisited: false
+				likeStatus: this.userPlaceData.likeStatus,
+				wantToVisit: this.userPlaceData.wantToVisit,
+				hadVisited: this.userPlaceData.hadVisited
 			})
 
 			var requestOptions = {
@@ -140,6 +160,9 @@ export default {
 				.then(response => response.text())
 				.then(result => console.log(result))
 				.catch(error => console.log("error", error))
+		},
+		getDocId() {
+			console.log("docid")
 		}
 	},
 	async mounted() {
@@ -149,25 +172,25 @@ export default {
 			redirect: "follow"
 		}
 
-		let response = await fetch(
+		let getPlace = await fetch(
 			"http://localhost:5001/travel-app-9b55f/us-central1/getPlace?place=" +
 				placeSelected +
 				"",
 			requestOptions
 		)
-		this.place = await response.json()
+		this.place = await getPlace.json()
 
-		console.log(this.store.state.userData.uid)
-		console.log(this.place.id)
-		response = await fetch(
-			"http://localhost:5001/travel-app-9b55f/us-central1/getUserPlace?uid=" +
-				this.store.state.userData.uid +
-				"&pid=" +
-				this.place.id +
-				"",
-			requestOptions
-		)
-		this.userPlaceData = await response.json()
+		do {
+			let getUserPlace = await fetch(
+				"http://localhost:5001/travel-app-9b55f/us-central1/getUserPlace?uid=" +
+					this.store.state.userData.uid +
+					"&pid=" +
+					this.place.id +
+					"",
+				requestOptions
+			)
+			this.userPlaceData = await getUserPlace.json()
+		} while (this.store.state.userData.uid.length == 0)
 	}
 }
 </script>

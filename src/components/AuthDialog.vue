@@ -97,7 +97,6 @@ export default {
 	created() {
 		auth.onAuthStateChanged(user => {
 			if (user) {
-				console.log("Auth")
 				this.store.commit("changeLoggedStatus", true)
 				this.store.commit("setUserData", user)
 			} else {

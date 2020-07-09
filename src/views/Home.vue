@@ -70,7 +70,7 @@ export default {
 	.card {
 		background-color: var(--color-white);
 		box-shadow: 3px 4px 20px rgba(0, 0, 0, 0.25);
-		padding: 14px;
+		padding: 40px;
 	}
 
 	.dashboard_explore {

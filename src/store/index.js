@@ -1,6 +1,7 @@
 import { createStore } from "vuex"
 
 const state = {
+	API_URL: process.env.VUE_APP_API_URL,
 	loggedIn: false,
 	signInDialog: false,
 	userData: {

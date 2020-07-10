@@ -26,7 +26,7 @@ import CategoryCard from "@/components/CategoryCard.vue"
 import EmptyError from "@/components/EmptyError.vue"
 
 export default {
-	name: "App",
+	name: "Categories",
 	async setup() {
 		var requestOptions = {
 			method: "GET",
@@ -34,9 +34,9 @@ export default {
 		}
 		const store = useStore()
 
-		const api_url = store.state.API_URL + "getTags"
+		const getTags_url = store.state.API_URL + "getTags"
 
-		let response = await fetch(api_url, requestOptions)
+		let response = await fetch(getTags_url, requestOptions)
 		let categories = await response.json()
 		return { categories }
 	},

@@ -73,7 +73,7 @@
 import { useStore } from "vuex"
 
 export default {
-	name: "App",
+	name: "Place",
 	setup() {
 		const store = useStore()
 		const disableForm = false
@@ -119,10 +119,9 @@ export default {
 				redirect: "follow"
 			}
 
-			fetch(
-				"http://localhost:5001/travel-app-9b55f/us-central1/saveUserPlace",
-				requestOptions
-			)
+			const saveUserPlace_url = this.store.state.API_URL + "saveUserPlace"
+
+			fetch(saveUserPlace_url, requestOptions)
 				.then(response => response.text())
 				.then(result => console.log(result))
 				.catch(error => console.log("error", error))
@@ -153,10 +152,9 @@ export default {
 				redirect: "follow"
 			}
 
-			fetch(
-				"http://localhost:5001/travel-app-9b55f/us-central1/saveUserPlace",
-				requestOptions
-			)
+			const saveUserPlace_url = this.store.state.API_URL + "saveUserPlace"
+
+			fetch(saveUserPlace_url, requestOptions)
 				.then(response => response.text())
 				.then(result => console.log(result))
 				.catch(error => console.log("error", error))
@@ -172,17 +170,16 @@ export default {
 			redirect: "follow"
 		}
 
-		let getPlace = await fetch(
-			"http://localhost:5001/travel-app-9b55f/us-central1/getPlace?place=" +
-				placeSelected +
-				"",
-			requestOptions
-		)
+		const getPlace_url =
+			this.store.state.API_URL + "getPlace?place=" + placeSelected
+
+		let getPlace = await fetch(getPlace_url, requestOptions)
 		this.place = await getPlace.json()
 
 		do {
 			let getUserPlace = await fetch(
-				"http://localhost:5001/travel-app-9b55f/us-central1/getUserPlace?uid=" +
+				this.store.state.API_URL +
+					"getUserPlace?uid=" +
 					this.store.state.userData.uid +
 					"&pid=" +
 					this.place.id +

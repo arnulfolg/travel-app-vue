@@ -22,11 +22,18 @@
 </template>
 
 <script>
+import { useStore } from "vuex"
+
 import PlaceCard from "@/components/PlaceCard.vue"
 import EmptyError from "@/components/EmptyError.vue"
 
 export default {
-	name: "App",
+	name: "Category",
+	setup() {
+		const store = useStore()
+
+		return { store }
+	},
 	data() {
 		return {
 			category: [],
@@ -44,20 +51,15 @@ export default {
 			redirect: "follow"
 		}
 
-		let placesResponse = await fetch(
-			"http://localhost:5001/travel-app-9b55f/us-central1/getTagPlaces?tag=" +
-				categorySelected +
-				"",
-			requestOptions
-		)
+		const getTagPlaces_url =
+			this.store.state.API_URL + "getTagPlaces?tag=" + categorySelected
+		const getTag_url =
+			this.store.state.API_URL + "getTag?tag=" + categorySelected
+
+		let placesResponse = await fetch(getTagPlaces_url, requestOptions)
 		this.category = await placesResponse.json()
 
-		let tagResponse = await fetch(
-			"http://localhost:5001/travel-app-9b55f/us-central1/getTag?tag=" +
-				categorySelected +
-				"",
-			requestOptions
-		)
+		let tagResponse = await fetch(getTag_url, requestOptions)
 		this.categoryName = await tagResponse.json()
 	}
 }

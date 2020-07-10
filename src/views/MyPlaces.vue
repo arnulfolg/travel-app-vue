@@ -41,12 +41,12 @@ export default {
 			redirect: "follow"
 		}
 
-		let getUserPlaces = await fetch(
-			"http://localhost:5001/travel-app-9b55f/us-central1/getMyPlaces?uid=" +
-				this.store.state.userData.uid +
-				"",
-			requestOptions
-		)
+		const getMyPlaces_url =
+			this.store.state.API_URL +
+			"getMyPlaces?uid=" +
+			this.store.state.userData.uid
+
+		let getUserPlaces = await fetch(getMyPlaces_url, requestOptions)
 		this.userPlaces = await getUserPlaces.json()
 	}
 }

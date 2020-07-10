@@ -17,21 +17,24 @@
 </template>
 
 <script>
+import { useStore } from "vuex"
+
 import PlaceCard from "@/components/PlaceCard.vue"
 import EmptyError from "@/components/EmptyError.vue"
 
 export default {
 	name: "Explore",
 	async setup() {
+		const store = useStore()
+
 		var requestOptions = {
 			method: "GET",
 			redirect: "follow"
 		}
 
-		let response = await fetch(
-			"http://localhost:5001/travel-app-9b55f/us-central1/getPlaces",
-			requestOptions
-		)
+		const getPlaces_url = store.state.API_URL + "getPlaces"
+
+		let response = await fetch(getPlaces_url, requestOptions)
 		let places = await response.json()
 		return { places }
 	},

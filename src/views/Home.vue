@@ -31,11 +31,18 @@
 </template>
 
 <script>
+import { useStore } from "vuex"
+
 import PlaceCard from "@/components/PlaceCard.vue"
 import EmptyError from "@/components/EmptyError.vue"
 
 export default {
-	name: "App",
+	name: "Home",
+	setup() {
+		const store = useStore()
+
+		return { store }
+	},
 	data() {
 		return {
 			featuredPlaces: []
@@ -51,10 +58,9 @@ export default {
 			redirect: "follow"
 		}
 
-		let response = await fetch(
-			"http://localhost:5001/travel-app-9b55f/us-central1/getFeaturedPlaces",
-			requestOptions
-		)
+		const getFeaturedPlaces_url = this.store.state.API_URL + "getFeaturedPlaces"
+
+		let response = await fetch(getFeaturedPlaces_url, requestOptions)
 		this.featuredPlaces = await response.json()
 	}
 }

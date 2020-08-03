@@ -110,8 +110,6 @@ export default {
 				hadVisited: this.userPlaceData.hadVisited
 			})
 
-			console.log(body)
-
 			var requestOptions = {
 				method: "POST",
 				headers: myHeaders,
